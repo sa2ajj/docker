@@ -11,12 +11,13 @@ Hello World Daemon
 
 The most boring daemon ever written.
 
-This example assumes you have Docker installed and with the base image already
-imported ``docker pull base``.  We will use the base image to run a simple
-hello world daemon that will just print hello world to standard out every
-second. It will continue to do this until we stop it.
+This example assumes you have Docker installed and with the ``base`` image
+already imported using :command:`docker pull base`.  We will use the base image
+to run a simple hello world daemon that will just print hello world to standard
+out every second. It will continue to do this until we stop it.
 
-**Steps:**
+Steps
+-----
 
 .. code-block:: bash
 
@@ -25,14 +26,15 @@ second. It will continue to do this until we stop it.
 We are going to run a simple hello world daemon in a new container made from
 the base image.
 
-- **"docker run -d "** run a command in a new container. We pass "-d" so it
+- :command:`docker run -d` run a command in a new container. We pass :option:`-d` so it
   runs as a daemon.
-- **"base"** is the image we want to run the command inside of.
-- **"/bin/sh -c"** is the command we want to run in the container
-- **"while true; do echo hello world; sleep 1; done"** is the mini script we
+- ``base`` is the image we want to run the command inside of.
+- :command:`/bin/sh -c` is the command we want to run in the container
+- :command:`while true; do echo hello world; sleep 1; done` is the mini script we
   want to run, that will just print hello world once a second until we stop it.
-- **$CONTAINER_ID** the output of the run command will return a container id,
-  we can use in future commands to see what is going on with this process.
+- :envvar:`$CONTAINER_ID` the output of the :command:`docker run` command will
+  return a container id, we can use in future commands to see what is going on
+  with this process.
 
 .. code-block:: bash
 
@@ -40,8 +42,8 @@ the base image.
 
 Check the logs make sure it is working correctly.
 
-- **"docker logs**" This will return the logs for a container
-- **$CONTAINER_ID** The Id of the container we want the logs for.
+- :command:`docker logs` This will return the logs for a container
+- :envvar:`$CONTAINER_ID` The Id of the container we want the logs for.
 
 .. code-block:: bash
 
@@ -49,9 +51,9 @@ Check the logs make sure it is working correctly.
 
 Attach to the container to see the results in realtime.
 
-- **"docker attach**" This will allow us to attach to a background process to
+- :command:`docker attach` This will allow us to attach to a background process to
   see what is going on.
-- **$CONTAINER_ID** The Id of the container we want to attach too.
+- :envvar:`$CONTAINER_ID` The Id of the container we want to attach too.
 
 .. code-block:: bash
 
@@ -59,7 +61,7 @@ Attach to the container to see the results in realtime.
 
 Check the process list to make sure it is running.
 
-- **"docker ps"** this shows all running process managed by docker
+- :command:`docker ps` this shows all running process managed by docker
 
 .. code-block:: bash
 
@@ -67,8 +69,8 @@ Check the process list to make sure it is running.
 
 Stop the container, since we don't need it anymore.
 
-- **"docker stop"** This stops a container
-- **$CONTAINER_ID** The Id of the container we want to stop.
+- :command:`docker stop` This stops a container
+- :envvar:`$CONTAINER_ID` The Id of the container we want to stop.
 
 .. code-block:: bash
 
@@ -76,8 +78,8 @@ Stop the container, since we don't need it anymore.
 
 Make sure it is really stopped.
 
-
-**Video:**
+Video
+-----
 
 See the example in action
 

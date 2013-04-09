@@ -14,83 +14,85 @@ images using a parent image, making changes to it, and then saving the results
 as a new image. We will do that by making a simple hello flask web application
 image.
 
-**Steps:**
+Steps
+-----
 
 .. code-block:: bash
 
     docker pull shykes/pybuilder
 
-We are downloading the "shykes/pybuilder" docker image
+We are downloading the ``shykes/pybuilder`` docker image
 
 .. code-block:: bash
 
     URL=http://github.com/shykes/helloflask/archive/master.tar.gz
 
-We set a URL variable that points to a tarball of a simple helloflask web app
+We set a :envvar:`URL` variable that points to a tarball of a simple helloflask web app
 
 .. code-block:: bash
 
     BUILD_JOB=$(docker run -d -t shykes/pybuilder:latest /usr/local/bin/buildapp $URL)
 
-Inside of the "shykes/pybuilder" image there is a command called buildapp, we
-are running that command and passing the $URL variable from step 2 to it, and
-running the whole thing inside of a new container. BUILD_JOB will be set with
-the new container_id.
+Inside of the ``shykes/pybuilder`` image there is a command called :command:`buildapp`, we
+are running that command and passing the :envvar:`$URL` variable from step 2 to it, and
+running the whole thing inside of a new container. :envvar:`BUILD_JOB` will be set with
+the new container id.
 
 .. code-block:: bash
 
     docker attach $BUILD_JOB
     [...]
 
-We attach to the new container to see what is going on. Ctrl-C to disconnect
+We attach to the new container to see what is going on. Press :kbd:`Ctrl-C` to disconnect
 
 .. code-block:: bash
 
     BUILD_IMG=$(docker commit $BUILD_JOB _/builds/github.com/hykes/helloflask/master)
 
 Save the changed we just made in the container to a new image called
-"_/builds/github.com/hykes/helloflask/master" and save the image id in the
-BUILD_IMG variable name.
+``_/builds/github.com/hykes/helloflask/master`` and save the image id in the
+:envvar:`BUILD_IMG` variable name.
 
 .. code-block:: bash
 
     WEB_WORKER=$(docker run -d -p 5000 $BUILD_IMG /usr/local/bin/runapp)
 
-- **"docker run -d "** run a command in a new container. We pass "-d" so it
+- :command:`docker run -d` runs a command in a new container. We pass :option:`-d` so it
   runs as a daemon.
-- **"-p 5000"** the web app is going to listen on this port, so it must be
-  mapped from the container to the host system.
-- **"$BUILD_IMG"** is the image we want to run the command inside of.
-- **/usr/local/bin/runapp** is the command which starts the web app.
+- :option:`-p 5000` specifies what port from the container must be mapped to
+  the host system.  ``5000`` is the port web app is going to listen on
+- :envvar:`$BUILD_IMG` is the image we want to run the command inside of.
+- :command:`/usr/local/bin/runapp` is the command which starts the web app.
 
 Use the new image we just created and create a new container with network port
-5000, and return the container id and store in the WEB_WORKER variable.
+5000, and return the container id and store in the :envvar:`WEB_WORKER` variable.
 
 .. code-block:: bash
 
     docker logs $WEB_WORKER
      * Running on http://0.0.0.0:5000/
 
-view the logs for the new container using the WEB_WORKER variable, and if
-everything worked as planned you should see the line "Running on
-http://0.0.0.0:5000/" in the log output.
+view the logs for the new container using the :envvar:`WEB_WORKER` variable,
+and if everything worked as planned you should see the line ``Running on
+http://0.0.0.0:5000/`` in the log output.
 
 .. code-block:: bash
 
     WEB_PORT=$(docker port $WEB_WORKER 5000)
 
 lookup the public-facing port which is NAT-ed store the private port used by
-the container and store it inside of the WEB_PORT variable.
+the container and store it inside of the :envvar:`WEB_PORT` variable.
 
 .. code-block:: bash
 
     curl http://`hostname`:$WEB_PORT
       Hello world!
 
-access the web app using curl. If everything worked as planned you should see
-the line "Hello world!" inside of your console.
+access the web app using :command:`curl`. If everything worked as planned you should see
+the line ``Hello world!`` inside of your console.
 
-**Video:**
+Video
+-----
 
 See the example in action
 

@@ -9,11 +9,11 @@ Create an ssh daemon service
 
 .. include:: example_header.inc
 
-
 **Video:**
 
-I've create a little screencast to show how to create a sshd service and connect to it. It is something like 11
-minutes and not entirely smooth, but gives you a good idea.
+I've create a little screencast to show how to create a sshd service and
+connect to it. It is something like 11 minutes and not entirely smooth, but
+gives you a good idea.
 
 .. raw:: html
 

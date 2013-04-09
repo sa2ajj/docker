@@ -12,14 +12,14 @@ Docker can now be installed on Amazon EC2 with a single vagrant command. Vagrant
 1. Install vagrant from http://www.vagrantup.com/ (or use your package manager)
 2. Install the vagrant aws plugin
 
-   ::
+   .. code-block:: bash
 
        vagrant plugin install vagrant-aws
 
 
 3. Get the docker sources, this will give you the latest Vagrantfile and puppet manifests.
 
-   ::
+   .. code-block:: bash
 
       git clone https://github.com/dotcloud/docker.git
 
@@ -37,7 +37,7 @@ Docker can now be installed on Amazon EC2 with a single vagrant command. Vagrant
    Vagrant will read your access credentials from your environment, so we need to set them there first. Make sure
    you have everything on amazon aws setup so you can (manually) deploy a new image to EC2.
 
-   ::
+   .. code-block:: bash
 
        export AWS_ACCESS_KEY_ID=xxx
        export AWS_SECRET_ACCESS_KEY=xxx
@@ -53,13 +53,13 @@ Docker can now be installed on Amazon EC2 with a single vagrant command. Vagrant
 
    You can check if they are set correctly by doing something like
 
-   ::
+   .. code-block:: bash
 
       echo $AWS_ACCESS_KEY_ID
 
 6. Do the magic!
 
-   ::
+   .. code-block:: bash
 
       vagrant up --provider=aws
 
